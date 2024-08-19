@@ -27,6 +27,7 @@ agregarA departamento (Anu nombre departamentos duracion)                  = (An
 --PENSAR MENSAJE ERROR
 sacarA :: Departamento -> Anuncio -> Anuncio    -- permite quitarle un departamento a un anuncio
 sacarA departamento anuncio | notElem departamento (departamentosA anuncio) = error "El departamento ingresado no está asignado al anuncio"
+sacarA departamento (Anu nombre departamentos duracion) = (Anu nombre (filter (/=departamento) departamentos) duracion)
 
 aplicaA :: [ Departamento ] -> Anuncio -> Bool  -- responde si un anuncion debe emitirse para alguno de los departamentos consultados
 aplicaA _ (Anu _ [] _) = False
