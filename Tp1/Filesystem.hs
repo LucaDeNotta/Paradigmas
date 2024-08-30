@@ -17,7 +17,7 @@ anunciosF (FS _ anuncios) = anuncios
 
 agregarAnuncioF :: Anuncio -> FileSystem -> FileSystem            -- permite agregar un anuncio
 agregarAnuncioF anuncio (FS departamentos anuncios) | elem anuncio anuncios                                    = error "El anuncio ya se encuentra en el FileSystem"
-                                                    | null (departamentosA anuncio)                            = error "Un anuncio no puede no tener departamentos"
+                                                    | null (departamentosA anuncio)                            = error "Un anuncio no puede no tener departamentos asignados"
                                                     | not (chequeoDepF (departamentosA anuncio) departamentos) = error "Los departamentos asociados al anuncio no se encuentran en el FileSystem" 
                                                     | otherwise                                                = (FS departamentos (anuncio:anuncios))
 
@@ -25,7 +25,6 @@ sacarAnuncioF :: Anuncio -> FileSystem -> FileSystem              -- permite eli
 sacarAnuncioF anuncio (FS departamentos anuncios) | notElem anuncio anuncios = error "El anuncio ingresado no se encuentra en el FileSystem"
                                                   | otherwise                = (FS departamentos (filter (/=anuncio) anuncios))
 
---CORREGIR LUCA. PREGUNTAR EMILIO
 agregarDepartamentoF :: Departamento -> FileSystem -> FileSystem  -- permite agregar un departamento 
 agregarDepartamentoF "" _                                                                       = error "Ingrese un departamento válido"
 agregarDepartamentoF departamento (FS departamentos anuncios) | elem departamento departamentos = error "El departamento ingresado ya se encuentra en el FileSystem"
@@ -33,6 +32,7 @@ agregarDepartamentoF departamento (FS departamentos anuncios) | elem departament
 
 sacarDepartamentoF :: Departamento -> FileSystem -> FileSystem    -- permite eliminar un departamento
 sacarDepartamentoF departamento (FS departamentos anuncios) | notElem departamento departamentos = error "El departamento ingresado no se encuentra en el FileSystem"
+                                                            | departamentosAF departamento anuncios = error "El departamento ingresado está asociado a al menos un anuncio del FileSystem"
                                                             | otherwise                = (FS (filter (/=departamento) departamentos) anuncios)
 
 anunciosParaF :: [Departamento] -> FileSystem -> [Anuncio]        -- entrega los anuncios a emitir para un conjunto de departamentos
@@ -41,7 +41,11 @@ anunciosParaF departamentos (FS [] _) = error "La lista de anuncios está vacía
 anunciosParaF departamentos (FS _ anuncios) = [anuncio | anuncio <- anuncios, aplicaA departamentos anuncio]
 
 
-chequeoDepF :: [Departamento] -> [Departamento] -> Bool
+chequeoDepF :: [Departamento] -> [Departamento] -> Bool          -- responde si todos departamentos de la primera lista estan en la segunda
 chequeoDepF _ []                                         = False
 chequeoDepF [] _                                         = True
 chequeoDepF (aDepartamento:aDepartamentos) departamentos = elem aDepartamento departamentos && chequeoDepF aDepartamentos departamentos
+
+departamentosAF :: Departamento -> [ Anuncio ] -> Bool           -- responde si un departamento esta asociado a alguno de los anuncios consultados
+departamento _ [] = False
+departamentosAF departamento (anuncio:anuncios) = elem departamento (departamentosA anuncio) || departamentosAF departamento anuncios
