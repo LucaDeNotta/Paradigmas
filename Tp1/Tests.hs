@@ -6,8 +6,6 @@ import Control.Exception
 import System.IO.Unsafe
 
 
-
-
 testF :: Show a => a -> Bool
 testF action = unsafePerformIO $ do
     result <- tryJust isException (evaluate action)
@@ -19,6 +17,29 @@ testF action = unsafePerformIO $ do
         isException _ = Just ()
 
 
-
-
-
+departamento1 = "Electrónica"
+departamento2 = "Juguetes"
+departamento3 = "Bazar"
+departamento4 = "Librería"
+listaVacia = []
+listaDepartamentos = [departamento1, departamento2, departamento3, departamento4]
+listaIncompleta = [departamento1, departamento3]
+nombreAnuncio1 = "Samsung"
+nombreAnuncio2 = "Barbie"
+nombreAnuncio3 = "Tramontina"
+nombreAnuncio4 = "FW"
+anuncio1 = nuevoA nombreAnuncio1 5
+anuncio2 = nuevoA nombreAnuncio2 10
+anuncio3 = nuevoA nombreAnuncio3 15
+anuncio4 = nuevoA nombreAnuncio4 20
+--anuncio1_5 tiene todos los departamentos
+anuncio1_2 = agregarA departamento1 anuncio1
+anuncio1_3 = agregarA departamento2 anuncio1_2
+anuncio1_4 = agregarA departamento3 anuncio1_3
+anuncio1_5 = agregarA departamento4 anuncio1_4
+--anuncio2_3 tiene los departamentos 1 y 3
+anuncio2_2 = agregarA departamento1 anuncio2
+anuncio2_3 = agregarA departamento3 anuncio2_2
+--anuncio3_2 tiene el departamento 4
+anuncio3_2 = agregarA departamento4 anuncio3
+--anuncio4 no tiene departamentos
