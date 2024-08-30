@@ -8,7 +8,9 @@ import FileSystem
 data Prompter = Pro FileSystem [Departamento] Int deriving (Eq, Show)
 
 nuevoP :: FileSystem -> Prompter                       -- permite obtener un nuevo Prompter en base a un FileSystem
-nuevoP fileSystem = (Pro fileSystem [] 0)
+nuevoP fileSystem | null (anunciosF fileSystem)      = error "El FileSystem no tiene anuncios"
+                  | null (departamentosF fileSystem) = error "El FileSystem no tiene departamentos"
+                  | otherwise                         = (Pro fileSystem [] 0)
 
 archivosR :: Prompter -> FileSystem                    -- dado un prompter retorna su fileSystem
 archivosR (Pro fileSystem _ _) = fileSystem
