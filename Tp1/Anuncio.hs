@@ -25,12 +25,11 @@ agregarA "" _                                                              = err
 agregarA departamento anuncio | elem departamento (departamentosA anuncio) = error "El departamento ingresado ya está asignado al anuncio"
 agregarA departamento (Anu nombre departamentos duracion)                  = (Anu nombre (departamento:departamentos) duracion)
 
---PENSAR MENSAJE ERROR
 sacarA :: Departamento -> Anuncio -> Anuncio    -- permite quitarle un departamento a un anuncio
 sacarA departamento (Anu nombre departamentos duracion) | notElem departamento departamentos = error "El departamento ingresado no está asignado al anuncio"
                                                         | otherwise                          =  (Anu nombre (filter (/=departamento) departamentos) duracion)
 
-aplicaA :: [ Departamento ] -> Anuncio -> Bool  -- responde si un anuncion debe emitirse para alguno de los departamentos consultados
+aplicaA :: [ Departamento ] -> Anuncio -> Bool  -- responde si un anuncio debe emitirse para alguno de los departamentos consultados
 aplicaA _ (Anu _ [] _) = error "La lista de departamentos del anuncio está vacía"
 aplicaA [] _           = False
-aplicaA (x:xs) anuncio = elem x (departamentosA anuncio) || aplicaA xs anuncio
+aplicaA (departamento:departamentos) anuncio = elem departamento (departamentosA anuncio) || aplicaA departamentos anuncio
