@@ -17,7 +17,7 @@ departamentosP :: Prompter -> [Departamento]           -- dado un prompter retor
 departamentosP (Pro _ departamentos _) = departamentos
 
 configurarP :: Prompter -> [Departamento] -> Prompter  -- Prepara el prompter para emitir los anuncios en los departementos indicados
-configurarP _ []                                                = error "Ingrese una lista de departamentos no vacia" 
+configurarP _ []                                                = error "Ingrese una lista de departamentos no vacía" 
 configurarP (Pro fileSystem pDepartamentos index) departamentos = (Pro fileSystem departamentos index)
 
 anunciosP :: Prompter ->  [Nombre]                      -- entrega la lista de nombres de anuncios configurados
