@@ -43,3 +43,14 @@ anuncio2_3 = agregarA departamento3 anuncio2_2
 --anuncio3_2 tiene el departamento 4
 anuncio3_2 = agregarA departamento4 anuncio3
 --anuncio4 no tiene departamentos
+filesystemVacio = nuevoF
+filesystem1 = agregarDepartamentoF departamento1 filesystemVacio
+filesystem1_2 = agregarDepartamentoF departamento2 filesystem1
+filesystem1_3 = agregarDepartamentoF departamento3 filesystem1_2
+filesystem1_4 = agregarDepartamentoF departamento4 filesystem1_3
+filesystem1_5 = agregarAnuncioF anuncio1_5 filesystem1_4
+filesystem1_6 = agregarAnuncioF anuncio2_3 filesystem1_5
+filesystem2 = agregarDepartamentoF departamento3 filesystem1
+filesystem2_2 = agregarAnuncioF anuncio2_3 filesystem2
+
+prompter1 = nuevoP filesystem1_6
