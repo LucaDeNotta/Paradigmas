@@ -7,8 +7,8 @@ data Anuncio = Anu Nombre [ Departamento ] Duracion deriving (Eq, Show, Ord)
 
 --PREGUNTAR EMILIO
 nuevoA :: Nombre -> Duracion -> Anuncio         -- dado un nombre y una duracion en segundos retorna un nuevo Anuncio
-nuevoA "" _                            = error "Ingrese un nombre valido" 
-nuevoA nombre duracion | duracion <= 0 = error "Ingrese una duracion valida"
+nuevoA "" _                            = error "Ingrese un nombre válido" 
+nuevoA nombre duracion | duracion <= 0 = error "Ingrese una duración válida"
                        | otherwise     = (Anu nombre [] duracion)
 
 nombreA :: Anuncio -> Nombre                    -- dado un anuncio retorna su nombre
@@ -31,6 +31,6 @@ sacarA departamento (Anu nombre departamentos duracion) | notElem departamento d
                                                         | otherwise                          =  (Anu nombre (filter (/=departamento) departamentos) duracion)
 
 aplicaA :: [ Departamento ] -> Anuncio -> Bool  -- responde si un anuncion debe emitirse para alguno de los departamentos consultados
-aplicaA _ (Anu _ [] _) = error "La lista de departamentos del anuncio esta vacia"
+aplicaA _ (Anu _ [] _) = error "La lista de departamentos del anuncio está vacía"
 aplicaA [] _           = False
 aplicaA (x:xs) anuncio = elem x (departamentosA anuncio) || aplicaA xs anuncio
