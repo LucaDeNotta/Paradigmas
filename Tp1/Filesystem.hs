@@ -27,17 +27,17 @@ sacarAnuncioF anuncio (FS departamentos anuncios) | notElem anuncio anuncios = e
 
 --CORREGIR LUCA. PREGUNTAR EMILIO
 agregarDepartamentoF :: Departamento -> FileSystem -> FileSystem  -- permite agregar un departamento 
-agregarDepartamentoF "" _                                                                       = error "Ingrese un departamento valido"
+agregarDepartamentoF "" _                                                                       = error "Ingrese un departamento válido"
 agregarDepartamentoF departamento (FS departamentos anuncios) | elem departamento departamentos = error "El departamento ingresado ya se encuentra en el FileSystem"
                                                               | otherwise                       = (FS (departamento:departamentos) anuncios)
 
 sacarDepartamentoF :: Departamento -> FileSystem -> FileSystem    -- permite eliminar un departamento
-sacarDepartamentoF departamento (FS departamentos anuncios) | notElem departamento departamentos = error "El departamento ingresado no se encuentra en el FilseSystem"
+sacarDepartamentoF departamento (FS departamentos anuncios) | notElem departamento departamentos = error "El departamento ingresado no se encuentra en el FileSystem"
                                                             | otherwise                = (FS (filter (/=departamento) departamentos) anuncios)
 
 anunciosParaF :: [Departamento] -> FileSystem -> [Anuncio]        -- entrega los anuncios a emitir para un conjunto de departamentos
-anunciosParaF [] _ = error "La lista de departamentos esta vacia"
-anunciosParaF departamentos (FS [] _) = error "La lista de anuncios esta vacia"
+anunciosParaF [] _ = error "La lista de departamentos está vacía"
+anunciosParaF departamentos (FS [] _) = error "La lista de anuncios está vacía"
 anunciosParaF departamentos (FS _ anuncios) = [anuncio | anuncio <- anuncios, aplicaA departamentos anuncio]
 
 
