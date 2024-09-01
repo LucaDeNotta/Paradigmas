@@ -31,7 +31,8 @@ agregarDepartamentoF departamento (FS departamentos anuncios) | null departament
                                                               | otherwise                       = (FS (departamento:departamentos) anuncios)
 
 sacarDepartamentoF :: Departamento -> FileSystem -> FileSystem    -- permite eliminar un departamento
-sacarDepartamentoF departamento (FS departamentos anuncios) | notElem departamento departamentos    = error "El departamento ingresado no se encuentra en el FileSystem"
+sacarDepartamentoF departamento (FS departamentos anuncios) | null departamento                     = error "Ingrese un departamento válido"
+                                                            | notElem departamento departamentos    = error "El departamento ingresado no se encuentra en el FileSystem"
                                                             | departamentosAF anuncios departamento = error "El departamento ingresado está asociado a al menos un anuncio del FileSystem"
                                                             | otherwise                             = (FS (filter (/=departamento) departamentos) anuncios)
 
