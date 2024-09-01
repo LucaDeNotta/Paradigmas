@@ -24,6 +24,7 @@ departamento4 = "Librería"
 listaVacia = []
 listaDepartamentos = [departamento1, departamento2, departamento3, departamento4]
 listaIncompleta = [departamento1, departamento3]
+listaIncompleta2 = [departamento4, departamento2]
 nombreAnuncio1 = "Samsung"
 nombreAnuncio2 = "Barbie"
 nombreAnuncio3 = "Tramontina"
@@ -43,7 +44,6 @@ anuncio2Final = agregarA departamento3 anuncio2_2
 --anuncio3_2 tiene el departamento 4
 anuncio3Final = agregarA departamento4 anuncio3
 --anuncio4 no tiene departamentos
-
 filesystemVacio = nuevoF
 --filesystem1 tiene todos los departamentos y los anuncios 1 y 2
 filesystem1 = agregarDepartamentoF departamento1 filesystemVacio
@@ -52,9 +52,11 @@ filesystem1_3 = agregarDepartamentoF departamento3 filesystem1_2
 filesystem1_4 = agregarDepartamentoF departamento4 filesystem1_3
 filesystem1_5 = agregarAnuncioF anuncio1Final filesystem1_4
 filesystem1Final = agregarAnuncioF anuncio2Final filesystem1_5
---filesystem2 tiene todos los departamentos 1 y 3 y el anuncio 2
+--filesystem2 tiene los departamentos 1 y 3 y el anuncio 2
 filesystem2 = agregarDepartamentoF departamento3 filesystem1
 filesystem2Final = agregarAnuncioF anuncio2Final filesystem2
+--filesystem3 tiene los departamentos 1,2 y 3 y el anuncio 2
+filesystem3Final = agregarDepartamentoF departamento2 filesystem2Final
 
 --prompter1_2 tiene todos los departamentos
 prompter1 = nuevoP filesystem1Final
@@ -62,6 +64,9 @@ prompter1_2 = configurarP prompter1 listaDepartamentos
 --prompter2_2 tiene los departamentos 1 y 3
 prompter2 = nuevoP filesystem2Final
 prompter2_2 = configurarP prompter2 listaIncompleta
+
+prompter3 = nuevoP filesystem3Final
+prompter3_2 = configurarP prompter3 listaIncompleta2
 
 t = [ testF(nuevoA "" 2), -- nuevoA
       testF(nuevoA "Patata" (-1)),
@@ -87,5 +92,27 @@ t = [ testF(nuevoA "" 2), -- nuevoA
       testF(sacarAnuncioF anuncio3Final filesystem1Final),
       departamentosF(agregarDepartamentoF departamento2 filesystem2Final) == [departamento2, departamento3, departamento1], -- agregarDepartamentoF
       testF(agregarDepartamentoF "" filesystem1Final),
-      testF(agregarDepartamentoF departamento1 filesystem1Final)
+      testF(agregarDepartamentoF departamento1 filesystem1Final),
+      departamentosF(sacarDepartamentoF departamento2 filesystem3Final) == [departamento3, departamento1], -- sacarDepartamentoF
+      testF(sacarDepartamentoF departamento2 filesystem1Final),
+      testF(sacarDepartamentoF departamento4 filesystem2Final),
+      anunciosParaF listaIncompleta2 filesystem1Final == [anuncio1Final], -- anunciosParaF
+      testF(anunciosParaF listaVacia filesystem1Final),
+      testF(anunciosParaF listaDepartamentos filesystemVacio),
+      testF(nuevoP filesystemVacio), -- nuevoP
+      testF(nuevoP (sacarAnuncioF anuncio1 filesystem2Final)),
+      archivosR prompter1_2 == filesystem1Final, -- archivosR
+      departamentosP prompter1_2 == listaDepartamentos, -- departamentosP
+      departamentosP (configurarP prompter1 listaIncompleta) == listaIncompleta, -- configurarP
+      testF(configurarP prompter1 listaVacia),
+      anunciosP prompter1_2 == [nombreAnuncio2, nombreAnuncio1], -- anunciosP
+      testF(anunciosP prompter1),
+      showP prompter1_2 == anuncio2Final, -- showP
+      testF(showP prompter1),
+      testF(showP prompter3_2),
+      avanzarP prompter1_2 /= prompter1_2, -- avanzarP
+      showP (avanzarP prompter1_2) == anuncio1Final,
+      avanzarP (avanzarP prompter1_2) == prompter1_2,
+      duracionP prompter1_2 == 15, -- duracionP
+      avanzarP prompter1 == prompter1
       ]
