@@ -95,24 +95,24 @@ t = [ testF(nuevoA "" 2), -- nuevoA
       testF(agregarDepartamentoF departamento1 filesystem1Final),
       departamentosF(sacarDepartamentoF departamento2 filesystem3Final) == [departamento3, departamento1], -- sacarDepartamentoF
       testF(sacarDepartamentoF departamento2 filesystem1Final),
-      testF(sacarDepartamentoF departamento4 filesystem2Final),
+      testF(sacarDepartamentoF departamento4 filesystem2Final == filesystem2Final),
       anunciosParaF listaIncompleta2 filesystem1Final == [anuncio1Final], -- anunciosParaF
       testF(anunciosParaF listaVacia filesystem1Final),
       testF(anunciosParaF listaDepartamentos filesystemVacio),
       testF(nuevoP filesystemVacio), -- nuevoP
-      testF(nuevoP (sacarAnuncioF anuncio1 filesystem2Final)),
+      testF(nuevoP (sacarAnuncioF anuncio2Final filesystem2Final)),
       archivosR prompter1_2 == filesystem1Final, -- archivosR
       departamentosP prompter1_2 == listaDepartamentos, -- departamentosP
       departamentosP (configurarP prompter1 listaIncompleta) == listaIncompleta, -- configurarP
       testF(configurarP prompter1 listaVacia),
       anunciosP prompter1_2 == [nombreAnuncio2, nombreAnuncio1], -- anunciosP
-      testF(anunciosP prompter1),
       showP prompter1_2 == anuncio2Final, -- showP
-      testF(showP prompter1),
-      testF(showP prompter3_2),
+      testF(showP prompter1), -- Este error aplica también para AnunciosP, avanzarP y duracionP ya que todas usan anunciosConfP
+      testF(showP prompter3_2), -- Este error aplica también para AnunciosP, avanzarP y duracionP ya que todas usan anunciosConfP
       avanzarP prompter1_2 /= prompter1_2, -- avanzarP
       showP (avanzarP prompter1_2) == anuncio1Final,
       avanzarP (avanzarP prompter1_2) == prompter1_2,
-      duracionP prompter1_2 == 15, -- duracionP
-      avanzarP prompter1 == prompter1
+      duracionP prompter1_2 == 15 -- duracionP
       ]
+
+
