@@ -26,26 +26,30 @@ sacarAnuncioF anuncio (FS departamentos anuncios) | notElem anuncio anuncios = e
                                                   | otherwise                = (FS departamentos (filter (/=anuncio) anuncios))
 
 agregarDepartamentoF :: Departamento -> FileSystem -> FileSystem  -- permite agregar un departamento 
-agregarDepartamentoF "" _                                                                       = error "Ingrese un departamento válido"
-agregarDepartamentoF departamento (FS departamentos anuncios) | elem departamento departamentos = error "El departamento ingresado ya se encuentra en el FileSystem"
+agregarDepartamentoF departamento (FS departamentos anuncios) | null departamento               = error "Ingrese un departamento válido"
+                                                              | elem departamento departamentos = error "El departamento ingresado ya se encuentra en el FileSystem"
                                                               | otherwise                       = (FS (departamento:departamentos) anuncios)
 
 sacarDepartamentoF :: Departamento -> FileSystem -> FileSystem    -- permite eliminar un departamento
-sacarDepartamentoF departamento (FS departamentos anuncios) | notElem departamento departamentos = error "El departamento ingresado no se encuentra en el FileSystem"
-                                                            | departamentosAF departamento anuncios = error "El departamento ingresado está asociado a al menos un anuncio del FileSystem"
-                                                            | otherwise                = (FS (filter (/=departamento) departamentos) anuncios)
+sacarDepartamentoF departamento (FS departamentos anuncios) | notElem departamento departamentos    = error "El departamento ingresado no se encuentra en el FileSystem"
+                                                            | departamentosAF anuncios departamento = error "El departamento ingresado está asociado a al menos un anuncio del FileSystem"
+                                                            | otherwise                             = (FS (filter (/=departamento) departamentos) anuncios)
 
 anunciosParaF :: [Departamento] -> FileSystem -> [Anuncio]        -- entrega los anuncios a emitir para un conjunto de departamentos
-anunciosParaF [] _ = error "La lista de departamentos está vacía"
-anunciosParaF departamentos (FS [] _) = error "La lista de anuncios está vacía"
-anunciosParaF departamentos (FS _ anuncios) = [anuncio | anuncio <- anuncios, aplicaA departamentos anuncio]
+anunciosParaF departamentos (FS _ anuncios) | null departamentos = error "La lista de departamentos está vacía"
+                                            | null anuncios      = error "La lista de anuncios está vacía"
+                                            | otherwise          = [anuncio | anuncio <- anuncios, aplicaA departamentos anuncio]
 
 
 chequeoDepF :: [Departamento] -> [Departamento] -> Bool          -- responde si todos departamentos de la primera lista estan en la segunda
-chequeoDepF _ []                                         = False
-chequeoDepF [] _                                         = True
-chequeoDepF (aDepartamento:aDepartamentos) departamentos = elem aDepartamento departamentos && chequeoDepF aDepartamentos departamentos
+chequeoDepF aDepartamentos departamentos | null departamentos       = False
+                                         | null aDepartamentos      = True
+                                         | otherwise                = elem departamento departamentos && chequeoDepF tailDepartamentos departamentos
+                                            where departamento      = head aDepartamentos
+                                                  tailDepartamentos = tail aDepartamentos
 
-departamentosAF :: Departamento -> [ Anuncio ] -> Bool           -- responde si un departamento esta asociado a alguno de los anuncios consultados
-departamento _ [] = False
-departamentosAF departamento (anuncio:anuncios) = elem departamento (departamentosA anuncio) || departamentosAF departamento anuncios
+departamentosAF ::  [Anuncio] -> Departamento -> Bool           -- responde si un departamento esta asociado a alguno de los anuncios consultados
+departamentosAF anuncios departamento | null anuncios   = False
+                                      | otherwise       = elem departamento (departamentosA anuncioA) || departamentosAF anunciosA departamento 
+                                        where anuncioA  = head anuncios
+                                              anunciosA = tail anuncios
