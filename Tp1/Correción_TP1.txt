@@ -1,0 +1,69 @@
+La nota de esta entrega es: 8
+Cada punto se detalla de la siguiente manera:
+- <descripción del aspecto evaluado> <peso ponderado del aspecto>*<puntaje obtenido>: <nota ponderada a acumular>
+La proporción del peso de la nota teórica es del 30%, y la práctica es del 70%
+
+Teórica Tanda 1: Nota de esta sección 8.33
+Corrector: Emilio
+  - 1.1. A qué es lo que debe poder relacionar el programador cada parte del texto de un programa?
+    1.67*1: 1.67
+  - 1.2. Según el autor, qué es lo que sucede con el programa cuando el equipo de programador que posee su teoría se disuelve?
+    1.67*0.5: 0.83 !!
+  - 2.1. Nombre los dos principios fundamentales del diseño para personas. 
+    1.67*0.5: 0.83 !!
+  - 2.2. En una única oración breve, a qué se refire el autor por "Causality"?
+    1.67*1: 1.67
+  - 3.1. Cómo relaciona el paper a la ley de Moore?
+    1.67*1: 1.67
+  - 3.2. De las 4 estrategias para reducir la complejidad, enumere las 3 que veremos en la materia.
+    1.67*1: 1.67
+
+Comentarios del docente:
+1.2. el programa muere
+2.1. modelo conceptual y visibilidad
+
+Parte Práctica:
+Corrector: Julio
+Nota de esta sección 8.3125
+  - Carga corectamente en ghci
+    0.5*1: 0.5
+  - Respeta la consigna y interfaz dada en la consigna
+    0.5*1: 0.5
+  - Corren los tests provistos
+    0.75*1: 0.75
+  - Anuncio: hay tests sobre agregarA y sacarA
+    0.5*1: 0.5
+  - Anuncio: hay tests sobre casos especiales de agregarA y/o sacarA
+    0.5*1: 0.5
+  - Anuncio: hay test positivos y negativos sobre aplicaA
+    0.5*1: 0.5
+  - FileSystem: hay test sobre agregar y sacar departamentos y anuncios
+    0.5*1: 0.5
+  - FileSystem: hay test sobre casos especiales de agregar y sacar
+    0.5*1: 0.5
+  - FileSystem: hay test positivos y negativos sobre anunciosParaF
+    0.5*1: 0.5
+  - Prompter: hay tests sobre las variantes posibles de comportamiento de configurarP
+    0.75*0.25: 0.1875 !!
+  - Prompter: hay tests sobre las variantes posibles de comportamiento de anunciosP
+    0.5*0.25: 0.125 !!
+  - Prompter: hay tests sobre las variantes posibles de comportamiento de showP
+    0.5*1: 0.5
+  - Prompter: hay tests sobre las variantes posibles de comportamiento de duracionP
+    0.5*0.25: 0.125 !!
+  - Prompter: hay tests sobre avanzarP incluyendo dar la vuelta completa 
+    0.75*0.5: 0.375 !!
+  - Muestran dominio del lenguaje, uso de alto ordern, expresiones lambda, etc sin caer en excesiva complejidad.
+    0.75*1: 0.75
+  - No introducen elementos del lenguaje no vistos en clase.
+    0.5*1: 0.5
+  - Definen instancias para usar en los tests en lugar de usar literales y repetirlos.
+    0.5*1: 0.5
+  - No hay codigo repetido en general o funciones repetidas que puedan pasarse a Tipos
+    0.5*1: 0.5
+
+Comentarios del docente:
+Se esperaban más tests para distintas variantes de configurarP.
+Ídem para anunciosP.
+Ídem duracionP.
+Ídem avanzarP.
