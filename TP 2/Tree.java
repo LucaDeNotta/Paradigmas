@@ -6,59 +6,71 @@ public class Tree{
     public static String nadaALaDiestra = "Nada a la diestra!";
     public static String nadaALaSiniestra = "Nada a la siniestra!";
 
-    private Tree left;
-    private Tree right;
+    private Arista left;
+    private Arista right;
     private Object value;
 
     public Tree( Object a ) {
-        left = null;
-        right = null;
+        left = new NotConnectedArista(nadaALaSiniestra);
+        right = new NotConnectedArista(nadaALaDiestra);
         value = a;
     }
 
     public List dfs() {
         List list = new ArrayList();
-        Deque<Tree> stack = new ArrayDeque();
-        stack.push(this);
-        while (!stack.isEmpty()) {
-            Tree node = stack.pop();
-            list.add( node.carga() );
-            if (node.right != null) {
-            stack.push(node.right);
-            }
-            if (node.left != null) {
-            stack.push(node.left);
-            }
-        }
+        dfshelper(list);
+//        Deque<Tree> stack = new ArrayDeque();
+//        stack.push(this);
+//        while (!stack.isEmpty()) {
+//            Tree node = stack.pop();
+//            list.add( node.carga() );
+//            if (node.right != null) {
+//            stack.push(node.right);
+//            }
+//            if (node.left != null) {
+//            stack.push(node.left);
+//            }
+//        }
         return list;
+    }
+
+    public void dfshelper(List list) {
+        list.add(value);
+        left.nodedfs(list);
+        right.nodedfs(list);
     }
 
 
 
     public List bfs() {
-        Queue<Tree> queue = new ArrayDeque();
         List list = new ArrayList();
-        queue.add(this);
-        while (!queue.isEmpty()) {
-            Tree node = queue.remove();
-            list.add( node.carga() );
-            if (node.left != null) {
-                queue.add(node.left);
-            }
-            if (node.right != null) {
-                queue.add(node.right);
-            }
-        }
+        Queue<Tree> queue = new ArrayDeque();
+        bfshelper(list);
+//        queue.add(this);
+//        while (!queue.isEmpty()) {
+//            Tree node = queue.remove();
+//            list.add( node.carga() );
+//            if (node.left != null) {
+//                queue.add(node.left);
+//            }
+//            if (node.right != null) {
+//                queue.add(node.right);
+//            }
+//        }
         return list;
     }
 
+public void bfshelper(List list) {
+        list.add(value);
+}
+
     public Tree atLeft( Tree b ) {
-        left = b;
+        left = left.setTree(b);
         return this;
     }
 
     public Tree atRight( Tree b ) {
-        right = b;
+        right = right.setTree(b);
         return this;
     }
     public Object carga() {
@@ -66,16 +78,10 @@ public class Tree{
     }
 
     public Tree left() {
-        if (left == null) {
-            throw new RuntimeException(nadaALaSiniestra);
-        }
-        return left;
+        return left.connectedTree();
     }
 
     public Tree right() {
-        if (right == null) {
-            throw new RuntimeException(nadaALaDiestra);
-        }
-        return right;
+        return right.connectedTree();
     }
 }
