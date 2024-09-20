@@ -18,7 +18,7 @@ public class Tree{
 
     public List dfs() {
         List list = new ArrayList();
-        dfshelper(list);
+        dfsHelper(list);
 //        Deque<Tree> stack = new ArrayDeque();
 //        stack.push(this);
 //        while (!stack.isEmpty()) {
@@ -34,18 +34,25 @@ public class Tree{
         return list;
     }
 
-    public void dfshelper(List list) {
+    public void dfsHelper(List list) {
         list.add(value);
-        left.nodedfs(list);
-        right.nodedfs(list);
+        left.subTreeDFS(list);
+        right.subTreeDFS(list);
     }
-
-
 
     public List bfs() {
         List list = new ArrayList();
         Queue<Tree> queue = new ArrayDeque();
-        bfshelper(list);
+        //bfsQueue( queue );
+        queue.add( this );
+        //bfsHelper( list, queue );
+        while (!queue.isEmpty()) {
+            Tree actual = queue.poll();
+            list.add( actual.value );
+            actual.left.subTreeBFS( list, queue );
+            actual.right.subTreeBFS( list, queue );
+
+        }
 //        queue.add(this);
 //        while (!queue.isEmpty()) {
 //            Tree node = queue.remove();
@@ -60,9 +67,21 @@ public class Tree{
         return list;
     }
 
-public void bfshelper(List list) {
-        list.add(value);
-}
+
+    //public void bfsHelper( List list, Queue<Tree> queue ) {
+        //Tree actual = queue.poll();
+            //list.add( actual.value );
+            //actual.bfsQueue( list, queue );
+            //actual.left.subTreeBFS( list, queue );
+            //actual.right.subTreeBFS( list, queue );
+
+    //}
+
+    //public void bfsQueue( List list, Queue<Tree> queue ) {
+        //left.subTreeBFS( list, queue );
+        //right.subTreeBFS( list, queue );
+        //bfsHelper( list, queue );
+    //}
 
     public Tree atLeft( Tree b ) {
         left = left.setTree(b);
