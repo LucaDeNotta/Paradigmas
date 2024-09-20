@@ -17,7 +17,7 @@ public class ConnectedArista extends Arista {
 
     public Tree connectedTree() { return tree; }
 
-    public void subTreeDFS( List list ) { tree.dfsHelper(list); }
+    public void subTreeDFS( List list ) { tree.dfsHelper( list ); }
 
     public void subTreeBFS( List list, Queue<Tree> queue ) {
         queue.add( tree );
