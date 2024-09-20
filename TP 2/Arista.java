@@ -8,7 +8,8 @@ public abstract class Arista {
 
     public abstract Tree connectedTree();
 
-    public abstract void nodedfs(List list);
+    public abstract void subTreeDFS(List list);
 
-    public abstract void nodebfs(List list, Queue<Tree> queue);
+    public abstract void subTreeBFS(List list, Queue<Tree> queue);
+
 }
