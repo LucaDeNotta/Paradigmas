@@ -35,8 +35,8 @@ public class Tree{
         while ( !queue.isEmpty() ) {
             Tree actual = queue.poll();
             list.add( actual.value );
-            actual.left.subTreeBFS( list, queue );
-            actual.right.subTreeBFS( list, queue );
+            actual.left.subTreeBFS( queue );
+            actual.right.subTreeBFS( queue );
 
         }
         return list;
