@@ -10,6 +10,6 @@ public abstract class Arista {
 
     public abstract void subTreeDFS( List list );
 
-    public abstract void subTreeBFS( List list, Queue<Tree> queue );
+    public abstract void subTreeBFS( Queue<Tree> queue );
 
 }
