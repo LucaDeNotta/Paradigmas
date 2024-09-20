@@ -18,7 +18,8 @@ public class NotConnectedArista extends Arista {
         throw new RuntimeException(errorNotConnected);
     }
 
-    public void nodedfs(List list){}
+    public void subTreeDFS(List list){}
 
-    public void nodebfs(List list, Queue<Tree> queue){}
+    public void subTreeBFS(List list, Queue<Tree> queue){}
+
 }
