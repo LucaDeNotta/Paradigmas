@@ -6,15 +6,11 @@ public class Tree{
     public static String nadaALaDiestra = "Nada a la diestra!";
     public static String nadaALaSiniestra = "Nada a la siniestra!";
 
-    private Arista left;
-    private Arista right;
     private Object value;
+    private Arista left = new NotConnectedArista( nadaALaSiniestra );
+    private Arista right = new NotConnectedArista( nadaALaDiestra );
 
-    public Tree( Object a ) {
-        left = new NotConnectedArista( nadaALaSiniestra );
-        right = new NotConnectedArista( nadaALaDiestra );
-        value = a;
-    }
+    public Tree( Object a ) { value = a; }
 
     public List dfs() {
         List list = new ArrayList();
@@ -43,12 +39,12 @@ public class Tree{
     }
 
     public Tree atLeft( Tree b ) {
-        left = left.setTree( b );
+        left = left.connectTree( b );
         return this;
     }
 
     public Tree atRight( Tree b ) {
-        right = right.setTree( b );
+        right = right.connectTree( b );
         return this;
     }
     public Object carga() {
