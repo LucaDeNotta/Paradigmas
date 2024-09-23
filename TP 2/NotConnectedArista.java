@@ -6,11 +6,11 @@ import java.util.Queue;
 public class NotConnectedArista extends Arista {
     private String errorNotConnected;
 
-    NotConnectedArista( String Direccion ) {
-        errorNotConnected = Direccion;
+    public NotConnectedArista( String errorMessage ) {
+        errorNotConnected = errorMessage;
     }
 
-    public Arista setTree( Tree tree ) {
+    public Arista connectTree(Tree tree ) {
         return new ConnectedArista( tree );
     }
 
