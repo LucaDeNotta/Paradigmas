@@ -7,8 +7,8 @@ public abstract class Arista {
 
     public abstract Tree connectedTree();
 
-    public abstract void subTreeDFS( List list );
+    public abstract void subTreeDFS( List aList );
 
-    public abstract void subTreeBFS( Queue<Tree> queue );
+    public abstract void subTreeBFS( Queue<Tree> aQueue );
 
 }
