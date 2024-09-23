@@ -7,7 +7,7 @@ public class ConnectedArista extends Arista {
     private Tree connectedTree;
 
     public ConnectedArista( Tree aTree ) {
-        connectedTree = tree;
+        connectedTree = aTree;
     }
 
     public Tree connectedTree() { return connectedTree; }
@@ -15,7 +15,7 @@ public class ConnectedArista extends Arista {
     public void subTreeDFS( List aList ) { connectedTree.dfsHelper( aList ); }
 
     public void subTreeBFS( Queue<Tree> aQueue ) {
-        queue.add( connectedTree );
+        aQueue.add( connectedTree );
     }
 
 }
