@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Queue;
 
 public abstract class Arista {
-    
-    public abstract Arista connectTree(Tree tree );
 
     public abstract Tree connectedTree();
 
