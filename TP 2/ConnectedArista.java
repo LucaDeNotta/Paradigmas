@@ -4,23 +4,18 @@ import java.util.List;
 import java.util.Queue;
 
 public class ConnectedArista extends Arista {
-    private Tree tree;
+    private Tree connectedTree;
 
     public ConnectedArista( Tree tree ) {
-        this.tree = tree;
+        connectedTree = tree;
     }
 
-    public Arista setTree( Tree tree ) {
-        this.tree = tree;
-        return this;
-    }
+    public Tree connectedTree() { return connectedTree; }
 
-    public Tree connectedTree() { return tree; }
-
-    public void subTreeDFS( List list ) { tree.dfsHelper( list ); }
+    public void subTreeDFS( List list ) { connectedTree.dfsHelper( list ); }
 
     public void subTreeBFS( Queue<Tree> queue ) {
-        queue.add( tree );
+        queue.add(connectedTree);
     }
 
 }
