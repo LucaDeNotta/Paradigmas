@@ -39,12 +39,12 @@ public class Tree{
     }
 
     public Tree atLeft( Tree b ) {
-        left = left.connectTree( b );
+        left = new ConnectedArista( b );
         return this;
     }
 
     public Tree atRight( Tree b ) {
-        right = right.connectTree( b );
+        right = new ConnectedArista( b );
         return this;
     }
     public Object carga() {
