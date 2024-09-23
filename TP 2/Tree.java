@@ -13,26 +13,26 @@ public class Tree{
     public Tree( Object aValue ) { value = aValue; }
 
     public List dfs() {
-        List list = new ArrayList();
-        dfsHelper( list );
-        return list;
+        List aList = new ArrayList();
+        dfsHelper( aList );
+        return aList;
     }
 
     public void dfsHelper( List aList ) {
-        list.add( value );
+        aList.add( value );
         left.subTreeDFS( aList );
         right.subTreeDFS( aList );
     }
 
     public List bfs() {
-        List list = new ArrayList();
-        Queue<Tree> queue = new ArrayDeque();
-        queue.add( this );
-        while ( !queue.isEmpty() ) {
-            Tree actual = queue.poll();
-            list.add( actual.value );
-            actual.left.subTreeBFS( queue );
-            actual.right.subTreeBFS( queue );
+        List aList = new ArrayList();
+        Queue<Tree> aQueue = new ArrayDeque();
+        aQueue.add( this );
+        while ( !aQueue.isEmpty() ) {
+            Tree actual = aQueue.poll();
+            aList.add( actual.value );
+            actual.left.subTreeBFS( aQueue );
+            actual.right.subTreeBFS( aQueue );
 
         }
         return list;
