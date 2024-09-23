@@ -35,7 +35,7 @@ public class Tree{
             actual.right.subTreeBFS( aQueue );
 
         }
-        return list;
+        return aList;
     }
 
     public Tree atLeft( Tree aTree ) {
