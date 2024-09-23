@@ -10,10 +10,6 @@ public class NotConnectedArista extends Arista {
         errorNotConnected = errorMessage;
     }
 
-    public Arista connectTree(Tree tree ) {
-        return new ConnectedArista( tree );
-    }
-
     public Tree connectedTree() {
         throw new RuntimeException( errorNotConnected );
     }
