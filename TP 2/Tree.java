@@ -10,7 +10,7 @@ public class Tree{
     private Arista left = new NotConnectedArista( nadaALaSiniestra );
     private Arista right = new NotConnectedArista( nadaALaDiestra );
 
-    public Tree( Object a ) { value = a; }
+    public Tree( Object aValue ) { value = aValue; }
 
     public List dfs() {
         List list = new ArrayList();
@@ -18,10 +18,10 @@ public class Tree{
         return list;
     }
 
-    public void dfsHelper( List list ) {
+    public void dfsHelper( List aList ) {
         list.add( value );
-        left.subTreeDFS( list );
-        right.subTreeDFS( list );
+        left.subTreeDFS( aList );
+        right.subTreeDFS( aList );
     }
 
     public List bfs() {
@@ -38,13 +38,13 @@ public class Tree{
         return list;
     }
 
-    public Tree atLeft( Tree b ) {
-        left = new ConnectedArista( b );
+    public Tree atLeft( Tree aTree ) {
+        left = new ConnectedArista( aTree );
         return this;
     }
 
-    public Tree atRight( Tree b ) {
-        right = new ConnectedArista( b );
+    public Tree atRight( Tree aTree ) {
+        right = new ConnectedArista( aTree );
         return this;
     }
     public Object carga() {
