@@ -6,16 +6,16 @@ public class Rover {
     public static final String noSePuedenAbrirLasDosEscotillas = "No pueden estar las dos escotillas abiertas al mismo tiempo";
     public static final String noSePuedenCerrarEscotillasCerradas = "No se pueden cerrar las escotillas si ninguna esta abierta";
     public static final String escotillaCerrada = "La escotilla se encuentra cerrada";
-    public static final String noSePuedeEjecutarComando= "No se puede ejecutar comando %s, los siguientes comandos no serán ejecutados";
-    private int puntoY;
-    private int puntoX;
-    private String direccion;
+    public static final String noSePuedeEjecutarComando= "No existe el comando %s, los comandos posteriores no serán ejecutados";
+
+    private Posicion posicion;
+    private Direccion direccion;
+    //TODO cambiar estar variables para luego quitar ifs
     private boolean escotillaSuperior = false;
     private boolean escotillaInferior = false;
 
-    public Rover(int punto_x, int punto_y, String direccion) {
-        this.puntoX = punto_x;
-        this.puntoY = punto_y;
+    public Rover(Posicion posicion, Direccion direccion) {
+        this.posicion = posicion;
         this.direccion = direccion;
     }
 
@@ -30,7 +30,7 @@ public class Rover {
         }
         else if (comando == 'b') {
             retroceder();
-            }
+        }
         else if (comando == 'l'){
             rotarIzq();
         }
@@ -59,72 +59,76 @@ public class Rover {
     }
 
     public Rover avanzar() {
-        switch (direccion) {
-            case "N":
-                this.puntoY++;
-                break;
-            case "S":
-                this.puntoY--;
-                break;
-            case "E":
-                this.puntoX++;
-                break;
-            case "O":
-                this.puntoX--;
-                break;
-        }
+//        switch (direccion.getClass()) {
+//            case "N":
+//                this.puntoY++;
+//                break;
+//            case "S":
+//                this.puntoY--;
+//                break;
+//            case "E":
+//                this.puntoX++;
+//                break;
+//            case "O":
+//                this.puntoX--;
+//                break;
+//        }
+        direccion.forward(posicion);
         return this;
     }
 
     public Rover retroceder() {
-        switch (direccion) {
-            case "N":
-                this.puntoY--;
-                break;
-            case "S":
-                this.puntoY++;
-                break;
-            case "E":
-                this.puntoX--;
-                break;
-            case "O":
-                this.puntoX++;
-                break;
-        }
+//        switch (direccion) {
+//            case "N":
+//                this.puntoY--;
+//                break;
+//            case "S":
+//                this.puntoY++;
+//                break;
+//            case "E":
+//                this.puntoX--;
+//                break;
+//            case "O":
+//                this.puntoX++;
+//                break;
+//        }
+        direccion.backward(posicion);
         return this;
     }
 
     public Rover rotarIzq() {
-        switch (direccion) {
-            case "N":
-                this.direccion = "O";
-                break;
-            case "S":
-                this.direccion = "E";
-                break;
-            case "E":
-                this.direccion = "N";
-                break;
-            case "O":
-                this.direccion = "S";
-        }
+//        switch (direccion) {
+//            case "N":
+//                this.direccion = "O";
+//                break;
+//            case "S":
+//                this.direccion = "E";
+//                break;
+//            case "E":
+//                this.direccion = "N";
+//                break;
+//            case "O":
+//                this.direccion = "S";
+//        }
+        direccion = direccion.left();
         return this;
     }
 
     public Rover rotarDer() {
-        switch (direccion) {
-            case "N":
-                this.direccion = "E";
-                break;
-            case "S":
-                this.direccion = "O";
-                break;
-            case "E":
-                this.direccion = "S";
-                break;
-            case "O":
-                this.direccion = "N";
-        }
+//        switch (direccion) {
+//            case "N":
+//                this.direccion = "E";
+//                break;
+//            case "S":
+//                this.direccion = "O";
+//                break;
+//            case "E":
+//                this.direccion = "S";
+//                break;
+//            case "O":
+//                this.direccion = "N";
+//        }
+        direccion = direccion.right();
         return this;
     }
 
@@ -167,24 +171,13 @@ public class Rover {
         return this;
     }
 
-    public int getPuntoX() {
-        return puntoX;
-    }
-
-    public int getPuntoY() {
-        return puntoY;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
     //OJO con logico booleana aca
+    // TODO cambiar que se pasen los puntos y que se pase la direccion directamente
     public boolean estaUbicacion(int puntoX, int puntoY) {
-        return this.puntoX == puntoX && this.puntoY == puntoY;
+        return posicion.equals(new Posicion(puntoX, puntoY));
     }
 
-    public boolean apuntaDireccion(String direccion) {
+    public boolean apuntaDireccion(Direccion direccion) {
         return this.direccion.equals(direccion);
     }
 
@@ -201,6 +194,15 @@ public class Rover {
                 && aRover.apuntaDireccion(direccion)
                 && aRover.escotillaInferior == escotillaInferior
                 && aRover.escotillaSuperior == escotillaSuperior
-                && aRover.estaUbicacion(puntoX, puntoY);
+                && aRover.estaUbicacion(posicion.coordenada_X, posicion.coordenada_Y);
     }
+
+    public Posicion getPosicion(){
+        return posicion;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
 }
