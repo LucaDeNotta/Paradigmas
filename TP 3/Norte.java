@@ -10,11 +10,9 @@ public class Norte extends Direccion {
         return new Oeste();
     }
 
-    public void forward(Posicion posicion){
-        posicion.forward(this);
+    public Posicion forward(Posicion posicion){
+        return posicion.avanzarAlNorte();
     }
 
-    public void backward(Posicion posicion) {
-        posicion.backward(this);
-    }
+    public Posicion backward(Posicion posicion) { return posicion.avanzarAlSur(); }
 }
