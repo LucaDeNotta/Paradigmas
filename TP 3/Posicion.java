@@ -10,25 +10,17 @@ public class Posicion {
         this.coordenada_Y = y;
     }
 
-    public void forward(Norte Norte){ coordenada_Y++; }
+    public Posicion forward(Direccion direccion){ return direccion.forward(this ); }
 
-    public void forward(Este Este){ coordenada_X++; }
+    public Posicion backward(Direccion direccion){ return direccion.backward(this ); }
 
-    public void forward(Sur Sur){
-        coordenada_Y--;
-    }
+    public Posicion avanzarAlNorte(){ return new Posicion(coordenada_X, coordenada_Y + 1); }
 
-    public void forward(Oeste Oeste){
-        coordenada_X--;
-    }
+    public Posicion avanzarAlSur(){  return new Posicion(coordenada_X, coordenada_Y - 1); }
 
-    public void backward(Norte Norte){ coordenada_Y--; }
+    public Posicion avanzarAlEste(){  return new Posicion(coordenada_X + 1, coordenada_Y); }
 
-    public void backward(Este este) { coordenada_X--; }
-
-    public void backward(Sur Sur){ coordenada_Y++; }
-
-    public void backward(Oeste Oeste){ coordenada_X++; }
+    public Posicion avanzarAlOeste(){  return new Posicion(coordenada_X - 1, coordenada_Y); }
 
     public boolean equals(Object anObject){
         return anObject instanceof Posicion another
