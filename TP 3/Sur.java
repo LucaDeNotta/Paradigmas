@@ -1,18 +1,12 @@
 package Rover;
 
 public class Sur extends Direccion {
-    public Direccion right() {
-        return new Oeste();
-    }
+    public Direccion right() { return new Oeste(); }
 
-    public Direccion left() {
-        return new Este();
-    }
+    public Direccion left() { return new Este(); }
 
-    public void forward(Posicion posicion){
-        posicion.forward(this);
-    }
+    public Posicion forward(Posicion posicion){ return posicion.avanzarAlSur(); }
 
-    public void backward(Posicion posicion) { posicion.backward(this);
+    public Posicion backward(Posicion posicion) { return posicion.avanzarAlNorte();
     }
 }
