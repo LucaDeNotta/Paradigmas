@@ -1,7 +1,5 @@
 package Rover;
 
-import static java.util.Arrays.stream;
-
 public class Rover {
     public static final String noSePuedenAbrirLasDosEscotillas = "No pueden estar las dos escotillas abiertas al mismo tiempo";
     public static final String noSePuedenCerrarEscotillasCerradas = "No se pueden cerrar las escotillas si ninguna esta abierta";
@@ -53,7 +51,7 @@ public class Rover {
             recogerMuestra();
         }
         else{
-            throw new IllegalArgumentException(String.format(noSePuedeEjecutarComando,comando));
+            throw new IllegalArgumentException( String.format( noSePuedeEjecutarComando,comando ) );
         }
         return this;
     }
@@ -73,7 +71,7 @@ public class Rover {
 //                this.puntoX--;
 //                break;
 //        }
-        direccion.forward(posicion);
+        posicion = posicion.forward(direccion);
         return this;
     }
 
@@ -92,7 +90,7 @@ public class Rover {
 //                this.puntoX++;
 //                break;
 //        }
-        direccion.backward(posicion);
+        posicion = posicion.backward(direccion);
         return this;
     }
 
@@ -172,13 +170,13 @@ public class Rover {
     }
 
     //OJO con logico booleana aca
-    // TODO cambiar que se pasen los puntos y que se pase la direccion directamente
+    // TODO cambiar que se pasen los puntos y que se pase la posicion directamente
     public boolean estaUbicacion(int puntoX, int puntoY) {
-        return posicion.equals(new Posicion(puntoX, puntoY));
+        return posicion.equals( new Posicion( puntoX, puntoY ) );
     }
 
     public boolean apuntaDireccion(Direccion direccion) {
-        return this.direccion.equals(direccion);
+        return this.direccion.equals( direccion );
     }
 
     public boolean isEscotillaInferiorOpen() {
@@ -204,5 +202,4 @@ public class Rover {
     public Direccion getDireccion() {
         return direccion;
     }
-
 }
