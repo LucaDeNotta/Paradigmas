@@ -1,5 +1,8 @@
 package Rover;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Rover {
     public static final String noSePuedenAbrirLasDosEscotillas = "No pueden estar las dos escotillas abiertas al mismo tiempo";
     public static final String noSePuedenCerrarEscotillasCerradas = "No se pueden cerrar las escotillas si ninguna esta abierta";
@@ -12,6 +15,9 @@ public class Rover {
     private boolean escotillaSuperior = false;
     private boolean escotillaInferior = false;
 
+    public List<Comando> comandos = Arrays.asList( new Avanzar(), new Retroceder(), new RotarIzq(), new RotarDer(), new AbrirEscSup(),
+                                                   new AbrirEscInf(), new CerrarEsc(), new Aspirar(), new RecogerMuestra());
+
     public Rover(Posicion posicion, Direccion direccion) {
         this.posicion = posicion;
         this.direccion = direccion;
@@ -23,36 +29,37 @@ public class Rover {
     }
 
     public Rover ejecutarComando(char comando){
-        if (comando == 'f') {
-            avanzar();
-        }
-        else if (comando == 'b') {
-            retroceder();
-        }
-        else if (comando == 'l'){
-            rotarIzq();
-        }
-        else if (comando == 'r'){
-            rotarDer();
-        }
-        else if (comando == 'O'){
-            abrirEscSup();
-        }
-        else if (comando == 'o'){
-            abrirEscInf();
-        }
-        else if (comando == 'c'){
-            cerrarEsc();
-        }
-        else if (comando == 'a'){
-            aspirar();
-        }
-        else if (comando == 'i'){
-            recogerMuestra();
-        }
-        else{
-            throw new IllegalArgumentException( String.format( noSePuedeEjecutarComando,comando ) );
-        }
+//        if (comando == 'f') {
+//            avanzar();
+//        }
+//        else if (comando == 'b') {
+//            retroceder();
+//        }
+//        else if (comando == 'l'){
+//            rotarIzq();
+//        }
+//        else if (comando == 'r'){
+//            rotarDer();
+//        }
+//        else if (comando == 'O'){
+//            abrirEscSup();
+//        }
+//        else if (comando == 'o'){
+//            abrirEscInf();
+//        }
+//        else if (comando == 'c'){
+//            cerrarEsc();
+//        }
+//        else if (comando == 'a'){
+//            aspirar();
+//        }
+//        else if (comando == 'i'){
+//            recogerMuestra();
+//        }
+//        else{
+//            throw new IllegalArgumentException( String.format( noSePuedeEjecutarComando,comando ) );
+//        }
+
         return this;
     }
 
