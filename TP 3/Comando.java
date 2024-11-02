@@ -5,5 +5,8 @@ public abstract class Comando {
 
     public abstract void ejecutar(Rover rover);
 
+    public boolean puedeEjecutar (char anotherComando) {
+        return comando == anotherComando;
+    }
 
 }
