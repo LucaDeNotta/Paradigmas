@@ -23,116 +23,36 @@ public class Rover {
         this.direccion = direccion;
     }
 
-    public Rover recibirComandos(String comandos){
-        comandos.chars().mapToObj(c -> (char) c).forEach(comando -> ejecutarComando(comando));
+    public Rover recibirComandos (String comandosRecibidos){
+        comandosRecibidos.chars().mapToObj(c -> (char) c).forEach(comandoRecibido -> ejecutarComando(comandoRecibido));
         return this;
     }
 
     public Rover ejecutarComando(char comando){
-//        if (comando == 'f') {
-//            avanzar();
-//        }
-//        else if (comando == 'b') {
-//            retroceder();
-//        }
-//        else if (comando == 'l'){
-//            rotarIzq();
-//        }
-//        else if (comando == 'r'){
-//            rotarDer();
-//        }
-//        else if (comando == 'O'){
-//            abrirEscSup();
-//        }
-//        else if (comando == 'o'){
-//            abrirEscInf();
-//        }
-//        else if (comando == 'c'){
-//            cerrarEsc();
-//        }
-//        else if (comando == 'a'){
-//            aspirar();
-//        }
-//        else if (comando == 'i'){
-//            recogerMuestra();
-//        }
-//        else{
-//            throw new IllegalArgumentException( String.format( noSePuedeEjecutarComando,comando ) );
-//        }
-
+        comandos.stream()
+                .filter(each -> each.puedeEjecutar(comando))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException( String.format( noSePuedeEjecutarComando,comando ) ) )
+                .ejecutar(this);
         return this;
     }
 
     public Rover avanzar() {
-//        switch (direccion.getClass()) {
-//            case "N":
-//                this.puntoY++;
-//                break;
-//            case "S":
-//                this.puntoY--;
-//                break;
-//            case "E":
-//                this.puntoX++;
-//                break;
-//            case "O":
-//                this.puntoX--;
-//                break;
-//        }
         posicion = posicion.forward(direccion);
         return this;
     }
 
     public Rover retroceder() {
-//        switch (direccion) {
-//            case "N":
-//                this.puntoY--;
-//                break;
-//            case "S":
-//                this.puntoY++;
-//                break;
-//            case "E":
-//                this.puntoX--;
-//                break;
-//            case "O":
-//                this.puntoX++;
-//                break;
-//        }
         posicion = posicion.backward(direccion);
         return this;
     }
 
     public Rover rotarIzq() {
-//        switch (direccion) {
-//            case "N":
-//                this.direccion = "O";
-//                break;
-//            case "S":
-//                this.direccion = "E";
-//                break;
-//            case "E":
-//                this.direccion = "N";
-//                break;
-//            case "O":
-//                this.direccion = "S";
-//        }
         direccion = direccion.left();
         return this;
     }
 
     public Rover rotarDer() {
-//        switch (direccion) {
-//            case "N":
-//                this.direccion = "E";
-//                break;
-//            case "S":
-//                this.direccion = "O";
-//                break;
-//            case "E":
-//                this.direccion = "S";
-//                break;
-//            case "O":
-//                this.direccion = "N";
-//        }
         direccion = direccion.right();
         return this;
     }
