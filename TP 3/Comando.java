@@ -1,12 +1,19 @@
 package Rover;
 
-public abstract class Comando {
-    protected char comando;
+public class Comando {
+    private char comando;
+    private Runnable ejecutable;
 
-    public abstract void ejecutar(Rover rover);
+    public Comando(char comando, Runnable ejecutable) {
+        this.comando = comando;
+        this.ejecutable = ejecutable;
+    }
 
     public boolean puedeEjecutar (char anotherComando) {
         return comando == anotherComando;
     }
 
+    public void ejecutar () {
+        ejecutable.run();
+    }
 }
