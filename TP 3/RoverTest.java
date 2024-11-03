@@ -12,8 +12,6 @@ public class RoverTest {
         assertDireccionYUbicacion(roverApuntaNorte(), norte(), posicionInicial());
     }
 
-    // TODO organizar la creacion de los Rover y cuando sea necesario, organizar el codigo
-
     @Test public void RoverPointsNorthMovesForward(){
         assertDireccionYUbicacion(roverApuntaNorte().ejecutarComando('f'), norte(), new Posicion(1,2));
     }
