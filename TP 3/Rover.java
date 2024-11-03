@@ -4,19 +4,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Rover {
-    public static final String noSePuedenAbrirLasDosEscotillas = "No pueden estar las dos escotillas abiertas al mismo tiempo";
-    public static final String noSePuedenCerrarEscotillasCerradas = "No se pueden cerrar las escotillas si ninguna esta abierta";
-    public static final String escotillaCerrada = "La escotilla se encuentra cerrada";
     public static final String noSePuedeEjecutarComando= "No existe el comando %s, los comandos posteriores no serán ejecutados";
 
     private Posicion posicion;
     private Direccion direccion;
     //TODO cambiar estar variables para luego quitar ifs
-    private boolean escotillaSuperior = false;
-    private boolean escotillaInferior = false;
+    private Escotillas escotillas = new EscotillasCerradas();
 
-    public List<Comando> comandos = Arrays.asList( new Avanzar(), new Retroceder(), new RotarIzq(), new RotarDer(), new AbrirEscSup(),
-                                                   new AbrirEscInf(), new CerrarEsc(), new Aspirar(), new RecogerMuestra());
+    public List<Comando> comandos = Arrays.asList( new Avanzar(), new Retroceder(), new RotarIzquierda(), new RotarDerecha(), new AbrirEscotillaSuperior(),
+                                                   new AbrirEscotillaInferior(), new CerrarEscotilla(), new Aspirar(), new RecogerMuestra());
 
     public Rover(Posicion posicion, Direccion direccion) {
         this.posicion = posicion;
@@ -47,79 +43,64 @@ public class Rover {
         return this;
     }
 
-    public Rover rotarIzq() {
+    public Rover rotarIzquierda() {
         direccion = direccion.left();
         return this;
     }
 
-    public Rover rotarDer() {
+    public Rover rotarDerecha() {
         direccion = direccion.right();
         return this;
     }
 
-    public Rover abrirEscSup() {
-        if (escotillaInferior){
-            throw new RuntimeException(noSePuedenAbrirLasDosEscotillas);
-        }
-        escotillaSuperior = true;
+    public Rover abrirEscotillaSuperior() {
+        escotillas = escotillas.abrirEscotillaSuperior();
         return this;
     }
 
-    public Rover abrirEscInf() {
-        if (escotillaSuperior){
-            throw new RuntimeException(noSePuedenAbrirLasDosEscotillas);
-        }
-        escotillaInferior = true;
+    public Rover abrirEscotillaInferior() {
+        escotillas = escotillas.abrirEscotillaInferior();
         return this;
     }
 
-    public Rover cerrarEsc() {
-        if (!escotillaSuperior && !escotillaInferior){
-            throw new RuntimeException(noSePuedenCerrarEscotillasCerradas);
-        }
-        escotillaSuperior = false;
-        escotillaInferior = false;
+    public Rover cerrarEscotillas() {
+        escotillas = escotillas.cerrarEscotillas();
         return this;
     }
 
     public Rover aspirar() {
-        if (!escotillaSuperior){
-            throw new RuntimeException(escotillaCerrada);
-        }
+        escotillas.aspirar();
         return this;
     }
 
     public Rover recogerMuestra() {
-        if (!escotillaInferior){
-            throw new RuntimeException(escotillaCerrada);
-        }
+        escotillas.recogerMuestra();
         return this;
     }
 
     //OJO con logico booleana aca
     // TODO cambiar que se pasen los puntos y que se pase la posicion directamente
-    public boolean estaUbicacion(int puntoX, int puntoY) {
-        return posicion.equals( new Posicion( puntoX, puntoY ) );
+    public boolean estaUbicacion(Posicion coordenadas) {
+        return posicion.equals( coordenadas );
     }
 
     public boolean apuntaDireccion(Direccion direccion) {
         return this.direccion.equals( direccion );
     }
 
-    public boolean isEscotillaInferiorOpen() {
-        return escotillaInferior;
+    public boolean isEscotillaSuperiorOpen() {
+        return escotillas.escotillaSuperiorAbierta();
     }
 
-    public boolean isEscotillaSuperiorOpen() {
-        return escotillaSuperior;
+    public boolean isEscotillaInferiorOpen() {
+        return escotillas.escotillaInferiorAbierta();
     }
 
     public boolean equals( Object anObject ) {
         return anObject instanceof Rover aRover
-                && aRover.apuntaDireccion(direccion)
-                && aRover.escotillaInferior == escotillaInferior
-                && aRover.escotillaSuperior == escotillaSuperior
-                && aRover.estaUbicacion(posicion.coordenada_X, posicion.coordenada_Y);
+                && aRover.apuntaDireccion( direccion )
+                && escotillas.getClass().isInstance(aRover.escotillas)
+                && aRover.estaUbicacion( posicion );
     }
 
     public Posicion getPosicion(){
