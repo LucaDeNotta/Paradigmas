@@ -9,110 +9,145 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class RoverTest {
     // TODO cambiar somewhere
     @Test public void newRoverPointsSomewhere(){
-        assertTrue(new Rover(posicionInicial(), norte()).apuntaDireccion(norte()));
+        assertDireccionYUbicacion(roverApuntaNorte(), norte(), posicionInicial());
     }
 
     // TODO organizar la creacion de los Rover y cuando sea necesario, organizar el codigo
-    @Test public void RoverMovesForward(){
-        assertTrue(new Rover(posicionInicial(), norte()).ejecutarComando('f').estaUbicacion(1,2));
-        assertTrue(new Rover(posicionInicial(), este()).ejecutarComando('f').estaUbicacion(2,1));
-        assertTrue(new Rover(posicionInicial(), sur()).ejecutarComando('f').estaUbicacion(1,0));
-        assertTrue(new Rover(posicionInicial(), oeste()).ejecutarComando('f').estaUbicacion(0,1));
+
+    @Test public void RoverPointsNorthMovesForward(){
+        assertDireccionYUbicacion(roverApuntaNorte().ejecutarComando('f'), norte(), new Posicion(1,2));
     }
 
-    @Test public void RoverMovesBackward(){
-        assertTrue(new Rover(posicionInicial(), norte()).ejecutarComando('b').estaUbicacion(1,0));
-        assertTrue(new Rover(posicionInicial(), este()).ejecutarComando('b').estaUbicacion(0,1));
-        assertTrue(new Rover(posicionInicial(), sur()).ejecutarComando('b').estaUbicacion(1,2));
-        assertTrue(new Rover(posicionInicial(), oeste()).ejecutarComando('b').estaUbicacion(2,1));
+    @Test public void RoverPointsEastMovesForward(){
+        assertDireccionYUbicacion(roverApuntaEste().ejecutarComando('f'), este(), new Posicion(2,1));
     }
 
-    @Test public void RoverRotatesLeft(){
-        Rover rover = new Rover(posicionInicial(), norte());
-        assertTrue(rover.recibirComandos("llll").apuntaDireccion(norte()));
-        assertTrue(rover.ejecutarComando('l').apuntaDireccion(oeste()));
-        assertTrue(rover.ejecutarComando('l').apuntaDireccion(sur()));
-        assertTrue(rover.ejecutarComando('l').apuntaDireccion(este()));
-        assertTrue(rover.ejecutarComando('l').apuntaDireccion(norte()));
+    @Test public void RoverPointsSouthMovesForward(){
+        assertDireccionYUbicacion(roverApuntaSur().ejecutarComando('f'), sur(), new Posicion(1,0));
     }
 
-    @Test public void RoverRotatesRight(){
-        Rover rover = new Rover(posicionInicial(), norte());
-        assertTrue(rover.recibirComandos("rrrr").apuntaDireccion(norte()));
-        assertTrue(rover.ejecutarComando('r').apuntaDireccion(este()));
-        assertTrue(rover.ejecutarComando('r').apuntaDireccion(sur()));
-        assertTrue(rover.ejecutarComando('r').apuntaDireccion(oeste()));
-        assertTrue(rover.ejecutarComando('r').apuntaDireccion(norte()));
+    @Test public void RoverPointsWestMovesForward(){
+        assertDireccionYUbicacion(roverApuntaOeste().ejecutarComando('f'), oeste(), new Posicion(0,1));
+    }
+
+    @Test public void RoverPointsNorthMovesBackward(){
+        assertDireccionYUbicacion(roverApuntaNorte().ejecutarComando('b'), norte(), new Posicion(1,0));
+    }
+
+    @Test public void RoverPointsEastMovesBackward(){
+        assertDireccionYUbicacion(roverApuntaEste().ejecutarComando('b'), este(), new Posicion(0,1));
+    }
+
+    @Test public void RoverPointsSouthMovesBackward(){
+        assertDireccionYUbicacion(roverApuntaSur().ejecutarComando('b'), sur(), new Posicion(1,2));
+    }
+
+    @Test public void RoverPointsWestMovesBackward(){
+        assertDireccionYUbicacion(roverApuntaOeste().ejecutarComando('b'), oeste(), new Posicion(2,1));
+    }
+
+    @Test public void RoverPointsNorthRotatesLeft(){
+        assertDireccionYUbicacion(roverApuntaNorte().ejecutarComando('l'), oeste(), posicionInicial());
+    }
+
+    @Test public void RoverPointsWestRotatesLeft(){
+        assertDireccionYUbicacion(roverApuntaOeste().ejecutarComando('l'), sur(), posicionInicial());
+    }
+
+    @Test public void RoverPointsSouthRotatesLeft(){
+        assertDireccionYUbicacion(roverApuntaSur().ejecutarComando('l'), este(), posicionInicial());
+    }
+
+    @Test public void RoverPointsEastRotatesLeft(){
+        assertDireccionYUbicacion(roverApuntaEste().ejecutarComando('l'), norte(), posicionInicial());
+    }
+
+    @Test public void RoverFullRotatesLeft(){;
+        assertDireccionYUbicacion(roverApuntaNorte().recibirComandos("llll"), norte(), posicionInicial());
+    }
+
+    @Test public void RoverPointsNorthRotatesRight(){
+        assertDireccionYUbicacion(roverApuntaNorte().ejecutarComando('r'), este(), posicionInicial());
+    }
+
+    @Test public void RoverPointsEastRotatesRight(){
+        assertDireccionYUbicacion(roverApuntaEste().ejecutarComando('r'), sur(), posicionInicial());
+    }
+
+    @Test public void RoverPointsSouthRotatesRight(){
+        assertDireccionYUbicacion(roverApuntaSur().ejecutarComando('r'), oeste(), posicionInicial());
+    }
+
+    @Test public void RoverPointsWestRotatesRight(){
+        assertDireccionYUbicacion(roverApuntaOeste().ejecutarComando('r'), norte(), posicionInicial());
+    }
+
+    @Test public void RoverFullRotatesRight(){
+        assertDireccionYUbicacion(roverApuntaNorte().recibirComandos("rrrr"), norte(), posicionInicial());
     }
 
     @Test public void canOpenEscotillaSuperior(){
-        assertTrue(new Rover(posicionInicial(), norte()).ejecutarComando('O').isEscotillaSuperiorOpen());
+        assertTrue(roverApuntaNorte().ejecutarComando('O').isEscotillaSuperiorOpen());
     }
 
     @Test public void canOpenEscotillaInferior(){
-        assertTrue(new Rover(posicionInicial(), norte()).ejecutarComando('o').isEscotillaInferiorOpen());
+        assertTrue(roverApuntaNorte().ejecutarComando('o').isEscotillaInferiorOpen());
     }
 
     @Test public void canAspirar(){
-        Rover rover = new Rover(posicionInicial(), norte()).ejecutarComando('O');
-        assertEquals(rover, rover.ejecutarComando('a'));
+        assertDireccionYUbicacion(roverApuntaNorte().ejecutarComando('O').ejecutarComando('a'), norte(), posicionInicial());
     }
 
     @Test public void canCavar(){
-        Rover rover = new Rover( posicionInicial(), norte() ).ejecutarComando('o');
-        assertEquals( rover, rover.ejecutarComando('i') );
+        assertDireccionYUbicacion(roverApuntaNorte().ejecutarComando('o').ejecutarComando('i'), norte(), posicionInicial());
     }
 
     @Test public void cantOpenBothEscotillas(){
-        assertThrowsLike(noSePuedenAbrirLasDosEscotillas,
-                () -> new Rover(posicionInicial(), norte()).ejecutarComando('o').ejecutarComando('O'));
+        assertThrowsLike(Escotillas.noSePuedenAbrirLasDosEscotillas,
+                () -> roverApuntaNorte().ejecutarComando('o').ejecutarComando('O'));
     }
 
     @Test public void cantCloseClosedEscotillas(){
-        assertThrowsLike( noSePuedenCerrarEscotillasCerradas,
-                () -> new Rover(posicionInicial(), norte()).ejecutarComando('c') );
+        assertThrowsLike( Escotillas.noSePuedenCerrarEscotillasCerradas,
+                () -> roverApuntaNorte().ejecutarComando('c') );
     }
 
     @Test public void cantAspirarIfEscotillaClosed(){
-        assertThrowsLike( escotillaCerrada,
+        assertThrowsLike( Escotillas.escotillaCerrada,
                 () -> new Rover( posicionInicial(), norte()).ejecutarComando('a') );
     }
 
     @Test public void cantCavarIfEscotillaClosed(){
-        assertThrowsLike(escotillaCerrada,
+        assertThrowsLike(Escotillas.escotillaCerrada,
                 () -> new Rover( posicionInicial(), norte() ).ejecutarComando('i'));
     }
 
     @Test public void forwardAndTurnRightComands(){
-        Rover rover = new Rover( posicionInicial(), norte() ).recibirComandos("ffrfffrrffff");
-        assertTrue( rover.apuntaDireccion(oeste()) );
-        assertTrue( rover.estaUbicacion(0,3) );
+        assertDireccionYUbicacion(roverApuntaNorte().recibirComandos("ffrfffrrffff"), oeste(), new Posicion(0,3));
     }
 
     @Test public void backwardAndTurnLeftComands(){
-        Rover rover = new Rover( posicionInicial(), norte() ).recibirComandos("blbbllbbbb");
-        assertTrue( rover.apuntaDireccion( este() ) );
-        assertTrue( rover.estaUbicacion(-1,0) );
+        assertDireccionYUbicacion(roverApuntaNorte().recibirComandos("blbbllbbbb"), este(), new Posicion(-1,0));
     }
 
     @Test public void forwardBackwardLeftRightComands(){
-        Rover rover = new Rover( posicionInicial(), norte() ).recibirComandos("fffrbrblfffrb");
-        assertTrue( rover.apuntaDireccion(sur()) );
-        assertTrue( rover.estaUbicacion(3,6) );
+        assertDireccionYUbicacion(roverApuntaNorte().recibirComandos("fffrbrblfffrb"), sur(), new Posicion(3,6));
     }
 
     @Test public void aspirarCavarAbrirCerrarEscotillasComands(){
-        Rover rover = new Rover( posicionInicial(), norte() );
-        assertEquals( rover, rover.recibirComandos("Oacoic") );
-        assertTrue( rover.estaUbicacion(1,1) );
+        assertDireccionYUbicacion(roverApuntaNorte().recibirComandos("Oacoic"), norte(), new Posicion(1,1));
     }
 
     @Test public void notProcessFollowingComands(){
-        Rover rover = new Rover( posicionInicial(), norte() );
+        Rover rover = roverApuntaNorte();
         assertThrowsLike( String.format(noSePuedeEjecutarComando, 'z'),
                 () -> rover.recibirComandos("frfllbzbbf") );
-        assertTrue(rover.apuntaDireccion( oeste()) );
-        assertTrue( rover.estaUbicacion(3,2) );
+        assertDireccionYUbicacion(rover, oeste(), new Posicion(3,2));
+    }
+
+    public void assertDireccionYUbicacion(Rover rover, Direccion direccion, Posicion posicion){
+        assertTrue(rover.apuntaDireccion(direccion));
+        assertTrue(rover.estaUbicacion(posicion));
     }
 
     private static void assertThrowsLike( String expectedMsg, Executable expression ){
@@ -137,5 +172,21 @@ public class RoverTest {
 
     public Posicion posicionInicial(){
         return new Posicion(1, 1);
+    }
+
+    private Rover roverApuntaNorte() {
+        return new Rover(posicionInicial(), norte());
+    }
+
+    private Rover roverApuntaEste() {
+        return new Rover(posicionInicial(), este());
+    }
+
+    private Rover roverApuntaSur() {
+        return new Rover(posicionInicial(), sur());
+    }
+
+    private Rover roverApuntaOeste() {
+        return new Rover(posicionInicial(), oeste());
     }
 }
