@@ -1,11 +1,11 @@
 package Rover;
 
-public class AbrirEscInf extends Comando {
-    public AbrirEscInf(){
+public class AbrirEscotillacInferior extends Comando {
+    public AbrirEscotillaInferior(){
         comando = 'o';
     }
 
     public void ejecutar(Rover rover) {
-        rover.abrirEscInf();
+        rover.abrirEscotillaInferior();
     }
 }
