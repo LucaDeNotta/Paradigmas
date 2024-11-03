@@ -8,11 +8,18 @@ public class Rover {
 
     private Posicion posicion;
     private Direccion direccion;
-    //TODO cambiar estar variables para luego quitar ifs
     private Escotillas escotillas = new EscotillasCerradas();
-
-    public List<Comando> comandos = Arrays.asList( new Avanzar(), new Retroceder(), new RotarIzquierda(), new RotarDerecha(), new AbrirEscotillaSuperior(),
-                                                   new AbrirEscotillaInferior(), new CerrarEscotilla(), new Aspirar(), new RecogerMuestra());
+    private List<Comando> comandos = Arrays.asList(
+            new Comando('f', this::avanzar),
+            new Comando('b', this::retroceder),
+            new Comando('l', this::rotarIzquierda),
+            new Comando('r', this::rotarDerecha),
+            new Comando('O', this::abrirEscotillaSuperior),
+            new Comando('o', this::abrirEscotillaInferior),
+            new Comando('c', this::cerrarEscotillas),
+            new Comando('a', this::aspirar),
+            new Comando('i', this::recogerMuestra)
+    );
 
     public Rover(Posicion posicion, Direccion direccion) {
         this.posicion = posicion;
@@ -77,9 +84,7 @@ public class Rover {
         escotillas.recogerMuestra();
         return this;
     }
-
-    //OJO con logico booleana aca
-    // TODO cambiar que se pasen los puntos y que se pase la posicion directamente
+    
     public boolean estaUbicacion(Posicion coordenadas) {
         return posicion.equals( coordenadas );
     }
