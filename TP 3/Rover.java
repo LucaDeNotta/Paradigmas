@@ -10,43 +10,43 @@ public class Rover {
     private Direccion direccion;
     private Escotillas escotillas = new EscotillasCerradas();
     private List<Comando> comandos = Arrays.asList(
-            new Comando('f', this::avanzar),
-            new Comando('b', this::retroceder),
-            new Comando('l', this::rotarIzquierda),
-            new Comando('r', this::rotarDerecha),
-            new Comando('O', this::abrirEscotillaSuperior),
-            new Comando('o', this::abrirEscotillaInferior),
-            new Comando('c', this::cerrarEscotillas),
-            new Comando('a', this::aspirar),
-            new Comando('i', this::recogerMuestra)
+            new Comando( 'f', this::avanzar ),
+            new Comando( 'b', this::retroceder ),
+            new Comando( 'l', this::rotarIzquierda ),
+            new Comando( 'r', this::rotarDerecha ),
+            new Comando( 'O', this::abrirEscotillaSuperior ),
+            new Comando( 'o', this::abrirEscotillaInferior ),
+            new Comando( 'c', this::cerrarEscotillas ),
+            new Comando( 'a', this::aspirar ),
+            new Comando( 'i', this::recogerMuestra )
     );
 
-    public Rover(Posicion posicion, Direccion direccion) {
+    public Rover( Posicion posicion, Direccion direccion ) {
         this.posicion = posicion;
         this.direccion = direccion;
     }
 
-    public Rover recibirComandos (String comandosRecibidos){
-        comandosRecibidos.chars().mapToObj(c -> (char) c).forEach(comandoRecibido -> ejecutarComando(comandoRecibido));
+    public Rover recibirComandos ( String comandosRecibidos ){
+        comandosRecibidos.chars().mapToObj( c -> (char) c ).forEach( comandoRecibido -> ejecutarComando( comandoRecibido ) );
         return this;
     }
 
-    public Rover ejecutarComando(char comando){
+    public Rover ejecutarComando( char comando ){
         comandos.stream()
-                .filter(each -> each.puedeEjecutar(comando))
+                .filter(each -> each.puedeEjecutar( comando ) )
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException( String.format( noSePuedeEjecutarComando,comando ) ) )
-                .ejecutar(this);
+                .orElseThrow( () -> new IllegalArgumentException( String.format( noSePuedeEjecutarComando,comando ) ) )
+                .ejecutar( this );
         return this;
     }
 
     public Rover avanzar() {
-        posicion = posicion.forward(direccion);
+        posicion = posicion.forward( direccion );
         return this;
     }
 
     public Rover retroceder() {
-        posicion = posicion.backward(direccion);
+        posicion = posicion.backward( direccion );
         return this;
     }
 
@@ -85,11 +85,11 @@ public class Rover {
         return this;
     }
     
-    public boolean estaUbicacion(Posicion coordenadas) {
+    public boolean estaUbicacion( Posicion coordenadas ) {
         return posicion.equals( coordenadas );
     }
 
-    public boolean apuntaDireccion(Direccion direccion) {
+    public boolean apuntaDireccion( Direccion direccion ) {
         return this.direccion.equals( direccion );
     }
 
@@ -104,7 +104,7 @@ public class Rover {
     public boolean equals( Object anObject ) {
         return anObject instanceof Rover aRover
                 && aRover.apuntaDireccion( direccion )
-                && escotillas.getClass().isInstance(aRover.escotillas)
+                && escotillas.getClass().isInstance( aRover.escotillas )
                 && aRover.estaUbicacion( posicion );
     }
 
