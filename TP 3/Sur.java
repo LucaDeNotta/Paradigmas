@@ -5,8 +5,8 @@ public class Sur extends Direccion {
 
     public Direccion left() { return new Este(); }
 
-    public Posicion forward(Posicion posicion){ return posicion.avanzarAlSur(); }
+    public Posicion forward( Posicion posicion ){ return posicion.avanzarAlSur(); }
 
-    public Posicion backward(Posicion posicion) { return posicion.avanzarAlNorte();
+    public Posicion backward( Posicion posicion ) { return posicion.avanzarAlNorte();
     }
 }
