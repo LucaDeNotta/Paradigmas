@@ -100,19 +100,4 @@ public class Rover {
     public boolean isEscotillaInferiorOpen() {
         return escotillas.escotillaInferiorAbierta();
     }
-
-    public boolean equals( Object anObject ) {
-        return anObject instanceof Rover aRover
-                && aRover.apuntaDireccion( direccion )
-                && escotillas.getClass().isInstance( aRover.escotillas )
-                && aRover.estaUbicacion( posicion );
-    }
-
-    public Posicion getPosicion(){
-        return posicion;
-    }
-
-    public Direccion getDireccion() {
-        return direccion;
-    }
 }
