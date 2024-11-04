@@ -36,7 +36,7 @@ public class Rover {
                 .filter(each -> each.puedeEjecutar( comando ) )
                 .findFirst()
                 .orElseThrow( () -> new IllegalArgumentException( String.format( noSePuedeEjecutarComando,comando ) ) )
-                .ejecutar( this );
+                .ejecutar();
         return this;
     }
 
