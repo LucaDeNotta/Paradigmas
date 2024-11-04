@@ -5,7 +5,6 @@ public class EscotillaInferiorAbierta extends Escotillas {
 
     public boolean escotillaSuperiorAbierta() { return false; }
 
-    //REFLEJAR COMPORTAMIENTO EN TESTS
     public Escotillas abrirEscotillaInferior() { return this; }
 
     public Escotillas abrirEscotillaSuperior() { throw new RuntimeException( noSePuedenAbrirLasDosEscotillas ); }
