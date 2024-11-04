@@ -1,7 +1,6 @@
 package Rover;
 
 public class Posicion {
-    //TODO cambiar a private cuando quitemos los ifs
     public int coordenada_X;
     public int coordenada_Y;
 
