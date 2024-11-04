@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RoverTest {
-    // TODO cambiar somewhere
+    
     @Test public void newRoverPointsSomewhere(){
         assertDireccionYUbicacion(roverApuntaNorte(), norte(), posicionInicial());
     }
