@@ -9,9 +9,9 @@ public class EscotillasCerradas extends Escotillas {
 
     public Escotillas abrirEscotillaSuperior() { return new EscotillaSuperiorAbierta(); }
 
-    public Escotillas cerrarEscotillas() { throw new RuntimeException(noSePuedenCerrarEscotillasCerradas); }
+    public Escotillas cerrarEscotillas() { throw new RuntimeException( noSePuedenCerrarEscotillasCerradas ); }
 
-    public void aspirar() { throw new RuntimeException(escotillaCerrada); }
+    public void aspirar() { throw new RuntimeException( escotillaCerrada ); }
 
-    public void recogerMuestra() { throw new RuntimeException(escotillaCerrada); }
+    public void recogerMuestra() { throw new RuntimeException( escotillaCerrada ); }
 }
