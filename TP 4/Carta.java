@@ -1,24 +1,29 @@
-public class Carta {
-    private int numero;
-    private int fichasEnCarta = 0;
+package nogracias;
 
-    public Carta(int numero){
-        if (numero < 3 || numero > 35){
+public class Carta implements Comparable<Carta>{
+    private Integer valor;
+    private Integer fichas = 0;
+
+    public Carta(Integer valor) {
+        if (valor < 3 || valor > 35){
             throw new RuntimeException("Numero invalido");
-        }
-        this.numero = numero;
-    }
 
-    public Carta usarFicha(){
-        this.fichasEnCarta++;
-        return this;
+        }
+        this.valor = valor;
+    }
+    public void pagarFicha() {
+        fichas++;
     }
 
     public int value(){
-        return this.numero;
+        return valor;
     }
 
     public int fichas(){
-        return this.fichasEnCarta;
+        return fichas;
+    }
+
+    public int compareTo(Carta other) {
+        return Integer.compare(valor, other.valor);
     }
 }
