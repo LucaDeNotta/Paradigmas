@@ -1,6 +1,6 @@
 package nogracias;
 
-public class Carta implements Comparable<Carta>{
+public class Carta implements Comparable<Carta> {
     private Integer valor;
     private Integer fichas = 0;
 
