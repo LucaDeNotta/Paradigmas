@@ -1,22 +1,18 @@
 package nogracias;
 
-public class JugadorNoActivo extends Jugador{
+import java.util.Stack;
+
+public class JugadorNoActivo extends EstadoJugador {
 
     public static final String terminoElJuego = "Ya termino el juego";
 
-    public JugadorNoActivo(String nombre, Integer fichas) {
-        super(nombre, fichas);
-    }
+    public JugadorNoActivo() {}
 
-    public Jugador pagarFicha(String jugador, Carta carta) {
+    public EstadoJugador pagarFicha(String jugador, Stack<Carta> cartas) {
         throw new RuntimeException(terminoElJuego);
     }
 
-    public Jugador tomarCarta(String jugador, Carta carta) {
+    public EstadoJugador tomarCarta(String jugador, Stack<Carta> cartas) {
         throw new RuntimeException(terminoElJuego);
-    }
-
-    public Jugador ganador(Juego juego) {
-        return this;
     }
 }
